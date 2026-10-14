@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登台 DengTai · 答辩演讲计时提词工作台</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ===================== 顶栏 ===================== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">登</div>
+        <div class="brand-text">
+          <div class="brand-name">登台 <span>DengTai</span></div>
+          <div class="brand-sub">答辩演讲计时提词工作台</div>
+        </div>
+      </div>
+      <nav class="nav" id="nav">
+        <a class="nav-item" data-route="script" href="#/script"><i>✎</i>讲稿工作台</a>
+        <a class="nav-item" data-route="prompter" href="#/prompter"><i>▶</i>提词排练</a>
+        <a class="nav-item" data-route="review" href="#/review"><i>◫</i>练习复盘</a>
+        <a class="nav-item" data-route="about" href="#/about"><i>○</i>关于</a>
+      </nav>
+      <div class="top-actions">
+        <span class="event-chip" id="event-chip">课程答辩 · 8 分钟</span>
+        <button class="btn btn-ghost" id="btn-export">导出</button>
+        <button class="btn btn-primary" id="btn-run">开始排练</button>
+      </div>
+    </header>
+
+    <div class="view" id="view"></div>
+  </div>
+
+  <!-- ===================== 分段编辑弹层 ===================== -->
+  <div class="modal-mask" id="modal-mask">
+    <div class="modal">
+      <h3 id="modal-title">编辑分段</h3>
+      <div class="form">
+        <label>分段标题
+          <input id="f-title" placeholder="开场与自我介绍" />
+        </label>
+        <label>讲稿内容（自动按句切分提词）
+          <textarea id="f-text" rows="8" placeholder="各位老师好！我是……"></textarea>
+        </label>
+        <div class="form-row">
+          <label>计划用时（秒）
+            <input id="f-quota" type="number" min="5" max="1800" step="5" value="45" />
+          </label>
+          <label>关键词（提词加粗提示，逗号分隔）
+            <input id="f-keys" placeholder="创新点, 准确率" />
+          </label>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" id="modal-del">删除本段</button>
+        <span style="flex:1"></span>
+        <button class="btn btn-ghost" id="modal-cancel">取消</button>
+        <button class="btn btn-primary" id="modal-save">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 提词器全屏层 ===================== -->
+  <div id="prompter" class="prompter hidden">
+    <div class="p-hud">
+      <div class="p-timer" id="p-timer">00:00</div>
+      <div class="p-center">
+        <div class="p-section" id="p-section">开场与自我介绍</div>
+        <div class="p-secbar"><i id="p-secbar"></i></div>
+        <div class="p-secinfo" id="p-secinfo">计划 45s · 用时 0s</div>
+      </div>
+      <div class="p-ctrl">
+        <button class="p-btn" id="p-play" title="空格 开始/暂停">▶</button>
+        <button class="p-btn" id="p-restart" title="重置本次排练">⟲</button>
+        <button class="p-btn" id="p-finish" title="结束并保存记录（✓）">✓</button>
+        <button class="p-btn" id="p-exit" title="退出（Esc）">✕</button>
+      </div>
+    </div>
+    <div class="p-mic" id="p-mic" hidden>
+      <span class="p-mic-label">音量</span>
+      <div class="p-mic-track"><i id="p-mic-bar"></i></div>
+    </div>
+    <div class="p-stage" id="p-stage">
+      <div class="p-flow" id="p-flow"></div>
+    </div>
+    <div class="p-foot" id="p-foot">空格 开始/暂停 · ← → 切段 · 滚轮手动调速 · Esc 退出</div>
+  </div>
+
+  <input type="file" id="file-import" accept="application/json" style="display:none" />
+
+  <script src="js/analyze.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
